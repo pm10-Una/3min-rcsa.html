@@ -5,59 +5,45 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>聯聖集團｜企業留才診斷系統</title>
     <style>
-        :root {
-            --rcsa-green: #294437; /* 聯聖綠 */
-            --rcsa-gold: #f39c12;  /* 聯聖金 */
-            --cta-red: #e74c3c;    /* 行動紅 */
-        }
+        :root { --rcsa-green: #294437; --rcsa-gold: #f39c12; --cta-red: #e74c3c; }
         body { font-family: "Noto Sans TC", "Microsoft JhengHei", sans-serif; margin: 0; background-color: #f8f9fa; color: #333; line-height: 1.6; }
         .container { max-width: 900px; margin: 30px auto; background: white; border-radius: 15px; box-shadow: 0 10px 40px rgba(0,0,0,0.1); overflow: hidden; }
-        .page { display: none; }
+        .page { display: none; padding: 60px 40px; }
         .active { display: block; }
-
+        
         /* 第一頁：首頁 */
-        #home-page { background-color: var(--rcsa-green); color: white; padding: 60px 40px; text-align: center; }
+        #home-page { background-color: var(--rcsa-green); color: white; text-align: center; }
         .logo-box { background: white; display: inline-block; padding: 12px 25px; border-radius: 5px; margin-bottom: 30px; font-weight: bold; color: var(--rcsa-green); font-size: 22px; }
-        .badge { background: var(--rcsa-gold); color: black; padding: 6px 18px; border-radius: 20px; font-weight: bold; font-size: 14px; margin-bottom: 20px; display: inline-block; }
-        .pain-box { background: white; color: #333; max-width: 600px; margin: 40px auto; padding: 30px; border-radius: 12px; text-align: left; border-left: 10px solid var(--rcsa-gold); }
-        .btn-gold { background: var(--rcsa-gold); color: white; padding: 18px 70px; border: none; border-radius: 50px; font-size: 22px; cursor: pointer; font-weight: bold; }
+        .hero-title { font-size: 38px; margin: 10px 0; }
+        .hero-subtitle { font-size: 30px; margin-bottom: 30px; }
+        .hero-p { font-size: 20px; color: #fdfdfd; margin-bottom: 30px; }
+        .pain-box { background: white; color: #333; max-width: 650px; margin: 40px auto; padding: 35px; border-radius: 12px; text-align: left; border-left: 10px solid var(--rcsa-gold); }
+        .pain-box h3 { color: #294437; margin-top: 0; font-size: 22px; }
+        .pain-box p { margin: 15px 0; font-size: 18px; }
+        .coffee-note { font-size: 18px; margin-top: 30px; font-weight: bold; }
+        .btn-gold { background: var(--rcsa-gold); color: white; padding: 18px 70px; border: none; border-radius: 50px; font-size: 24px; cursor: pointer; font-weight: bold; margin-top: 20px; }
 
-        /* 第二頁：測驗頁 */
-        #quiz-page { padding: 40px; }
-        .q-card { border: 1px solid #eee; border-radius: 12px; padding: 25px; margin-bottom: 20px; border-left: 6px solid var(--rcsa-green); }
+        /* 第二頁：測驗樣式 */
+        .q-card { border: 1px solid #eee; border-radius: 12px; padding: 25px; margin-bottom: 20px; border-left: 6px solid var(--rcsa-green); text-align: left; }
         .opt-group { display: flex; gap: 10px; margin-top: 15px; flex-wrap: wrap; }
-        .opt-btn { flex: 1; min-width: 100px; padding: 12px; border: 1px solid #ddd; background: #fff; cursor: pointer; border-radius: 6px; font-size: 14px; }
+        .opt-btn { flex: 1; min-width: 80px; padding: 12px; border: 1px solid #ddd; background: #fff; cursor: pointer; border-radius: 6px; }
         .opt-btn.active { background: var(--rcsa-green); color: white; border-color: var(--rcsa-green); }
 
-        /* 第三頁：結果頁 (白底綠框) */
-        #result-page { padding: 40px; text-align: center; }
-        .header-result { border-bottom: 3px solid var(--rcsa-green); padding-bottom: 15px; margin-bottom: 35px; text-align: left; }
-        .header-result h2 { color: var(--rcsa-green); margin: 0; font-size: 24px; }
-        .sub-text { color: #666; font-size: 16px; margin-top: 8px; display: block; }
-
+        /* 第三頁：結果頁樣式 */
         .analysis-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 35px; text-align: left; }
-        .analysis-item { border: 1.5px solid #eee; border-radius: 10px; padding: 20px; border-left: 6px solid var(--rcsa-gold); background: #fff; }
+        .analysis-item { border: 1.5px solid #eee; border-radius: 10px; padding: 20px; border-left: 6px solid var(--rcsa-gold); background: #fff; height: 140px; }
         .analysis-item h4 { margin: 0 0 10px 0; color: var(--rcsa-green); font-size: 18px; }
-
         .progress-section { background: #fff; border: 1px solid #eee; padding: 25px; border-radius: 12px; margin-bottom: 35px; text-align: left; }
         .prog-item { display: flex; align-items: center; margin-bottom: 15px; }
         .prog-label { width: 140px; font-weight: bold; color: var(--rcsa-green); }
         .prog-bar-bg { flex-grow: 1; background: #eee; height: 12px; border-radius: 10px; margin: 0 15px; overflow: hidden; }
         .prog-bar-fill { background: var(--rcsa-green); height: 100%; width: 0%; transition: width 1s ease-in-out; }
-        .prog-val { width: 45px; font-weight: bold; text-align: right; }
-
         .diag-box { border: 2.5px solid var(--rcsa-green); padding: 35px; border-radius: 15px; margin-bottom: 40px; text-align: left; background: #f9faf9; }
-        .diag-title { color: #d35400; font-weight: bold; margin-bottom: 15px; font-size: 22px; }
-
-        .btn-action { background: var(--cta-red); color: white; text-decoration: none; padding: 22px 75px; font-size: 26px; border-radius: 60px; font-weight: bold; display: inline-block; cursor: pointer; border: none; margin-bottom: 40px; box-shadow: 0 6px 20px rgba(231,76,60,0.4); }
-        
+        .diag-title { color: #d35400; font-size: 22px; font-weight: bold; margin-bottom: 15px; display: block; }
+        .btn-action { background: var(--cta-red); color: white; text-decoration: none; padding: 22px 75px; font-size: 26px; border-radius: 60px; font-weight: bold; display: inline-block; margin-bottom: 25px; box-shadow: 0 6px 20px rgba(231,76,60,0.4); border: none; cursor: pointer; }
         .book-section { display: flex; gap: 25px; margin-bottom: 40px; }
         .book-card { flex: 1; border: 1px solid #eee; border-radius: 12px; padding: 25px; text-align: center; background: white; }
         .book-img { width: 100%; max-width: 170px; height: auto; border-radius: 5px; box-shadow: 0 8px 15px rgba(0,0,0,0.1); margin-bottom: 15px; }
-
-        .slogan-box { margin: 25px 0; }
-        .slogan-main { font-size: 22px; color: var(--rcsa-green); font-weight: bold; display: block; margin-bottom: 10px; }
-        .slogan-sub { font-size: 19px; font-weight: bold; color: #444; display: block; margin-bottom: 25px; }
     </style>
 </head>
 <body>
@@ -65,20 +51,24 @@
 <div class="container">
     <section id="home-page" class="page active">
         <div class="logo-box">聯聖集團 RCSA</div><br>
-        <div class="badge">⏱ 僅需 3 分鐘</div>
-        <h1 style="font-size: 36px; margin: 15px 0;">為什麼好員工總留不住？<br>揭開企業「隱形流失」的真正黑洞</h1>
-        <p style="font-size: 19px;">面對離職潮，您還在用「加薪」當唯一的止痛藥嗎？<br>您需要的不是<b>消耗成本</b>，而是一次精準的「制度體檢」。</p>
+        <h1 class="hero-title">為什麼好員工總留不住？</h1>
+        <h2 class="hero-subtitle">揭開企業「隱形流失」的真正黑洞</h2>
+        <p class="hero-p">
+            面對離職潮，您還在用「加薪」當唯一的止痛藥嗎？<br>
+            您需要的不是<b>消耗成本</b>，而是一次精準的「制度體檢」。
+        </p>
         <div class="pain-box">
-            <h3 style="margin-top:0; color: var(--rcsa-green);">這是一直以來，困擾著您的問題嗎？</h3>
+            <h3>這是一直以來，困擾著您的問題嗎？</h3>
             <p>❌ 憑直覺改制度，卻擔心「牽一髮動全身」，引發更大的離職潮？</p>
             <p>❌ 福利一直加，員工的滿意度卻像黑洞一樣永遠填不滿？</p>
             <p>❌ 身為老闆，您是否感覺正被困在一堆「看得到卻改不動」的舊制度裡？</p>
         </div>
-        <button class="btn-gold" onclick="showPage('quiz-page')">立即進入診斷 ▶</button>
+        <p class="coffee-note">💡 只需喝一杯咖啡的時間，我們幫您對症下藥 ☕</p>
+        <button class="btn-gold" onclick="showPage('quiz-page')">開始診斷測驗 ▶</button>
     </section>
 
     <section id="quiz-page" class="page">
-        <div style="border-bottom: 3px solid var(--rcsa-green); padding-bottom: 15px; margin-bottom: 35px;">
+        <div style="border-bottom: 3px solid var(--rcsa-green); padding-bottom: 15px; margin-bottom: 35px; text-align: left;">
             <h2 style="color: var(--rcsa-green); margin:0;">管理痛點診斷 <span id="progress" style="float:right; color:var(--rcsa-gold); font-size:16px;">0/12</span></h2>
         </div>
         <div id="quiz-list"></div>
@@ -86,9 +76,9 @@
     </section>
 
     <section id="result-page" class="page">
-        <div class="header-result">
-            <h2>根據你的填答，我們幫你整理了這些卡點</h2>
-            <span class="sub-text">這不是對與錯，而是目前最需要被改善的地方</span>
+        <div style="text-align: left; border-bottom: 3px solid var(--rcsa-green); margin-bottom: 35px;">
+            <h2 style="color: var(--rcsa-green); margin:0;">企業管理深度診斷報告</h2>
+            <p style="color: #666;">根據您的填答，我們為您整理了現階段的核心卡點</p>
         </div>
 
         <div id="diag-analysis" class="analysis-grid"></div>
@@ -97,58 +87,49 @@
             <div class="prog-item">
                 <div class="prog-label">制度決策成熟度</div>
                 <div class="prog-bar-bg"><div id="bar-sys" class="prog-bar-fill"></div></div>
-                <div id="val-sys" class="prog-val">0%</div>
+                <div id="val-sys">0%</div>
             </div>
             <div class="prog-item">
                 <div class="prog-label">現場管理成熟度</div>
                 <div class="prog-bar-bg"><div id="bar-fld" class="prog-bar-fill"></div></div>
-                <div id="val-fld" class="prog-val">0%</div>
+                <div id="val-fld">0%</div>
             </div>
         </div>
 
         <div id="diag-summary" class="diag-box"></div>
 
         <a href="https://docs.google.com/forms/d/e/1FAIpQLScfciF2jI7Xf-OFK97qWvNmFWV53JzQx1pOfy7MECCsEtnQ3g/viewform?pli=1" target="_blank" class="btn-action">立即修補企業管理破口</a>
-
-        <div class="slogan-box">
-            <span class="slogan-main">多 1 套套組，少 1 次錯誤決策，少 1 個人才流失</span>
-        </div>
+        <span style="display:block; font-size:22px; font-weight:bold; color:var(--rcsa-green); margin-bottom:30px;">多 1 套套組，少 1 次錯誤決策，少 1 個人才流失</span>
 
         <div class="book-section">
             <div class="book-card">
-              <img src="./薪動力.jpg" alt="薪動力" class="book-img">
+                <img src="薪動力.jpg" alt="薪動力" class="book-img">
                 <div style="font-weight:bold; color:var(--rcsa-green); font-size:18px;">《薪動力》制度決策</div>
-                <p style="font-size:14px; text-align:left; color:#555;">負責把制度方向選對，建立薪資×獎金×績效的一致邏輯，避開高風險錯誤。</p>
+                <p style="font-size:14px; text-align:left;">建立「可被解釋、可被複製、可被預期後果」的制度決策系統。</p>
             </div>
             <div class="book-card">
-                <img src="./精緻團隊3.jpg" alt="精緻團隊問答輯3" class="book-img">
-                <div style="font-weight:bold; color:var(--rcsa-green); font-size:18px;">《精緻團隊問答輯 3》情境落地</div>
-                <p style="font-size:14px; text-align:left; color:#555;">負責讓制度走到現場，解開選、用、育、評、留的真實管理卡關。</p>
+                <img src="精緻團隊3.jpg" alt="精緻團隊 80Q" class="book-img">
+                <div style="font-weight:bold; color:var(--rcsa-green); font-size:18px;">《精緻團隊 80Q 第三輯》</div>
+                <p style="font-size:14px; text-align:left;">讓制度真的「走得到現場、解得了問題、撐得住信任」。</p>
             </div>
-        </div>
-
-        <div class="slogan-box">
-            <span class="slogan-sub">最省時間的選擇！決策對、現場順</span>
-            <a href="https://docs.google.com/forms/d/e/1FAIpQLScfciF2jI7Xf-OFK97qWvNmFWV53JzQx1pOfy7MECCsEtnQ3g/viewform?pli=1" target="_blank" class="btn-gold" style="padding: 15px 50px; font-size: 20px; background: var(--rcsa-green); text-decoration:none; display:inline-block;">點擊購買套書</a>
         </div>
     </section>
 </div>
 
 <script>
-    // 鎖定 12 題原始測驗內容
     const questions = [
         "我很難用一套清楚的邏輯，說明薪資、獎金與績效之間的關係。",
-        "制度公告後，我常感受到員工開始比較、質疑公平性。",
-        "面對同一套制度，不同主管說法不一致，讓我很困擾。",
-        "我想調整制度，但擔心一改就造成更大的問題。",
-        "設計制度時，我常只能靠直覺，難以判斷長期後果。",
-        "做制度決策前，我不完全清楚它對預算、激勵與績效的影響。",
-        "當制度在現場被質疑時，我不知道怎麼回應才不傷信任。",
-        "不同主管的做法差異很大，讓我很難維持一致性。",
-        "面對具體管理情境時，我常不知道哪種處理方式比較好。",
-        "我感覺努力與貢獻，沒有被制度清楚反映。",
-        "關鍵人才流失時，我很難說清楚真正原因。",
-        "我感覺信任感與士氣下滑，並開始影響合作與績效。"
+        "制度公告後，我常感覺到員工開始比較、質疑制度的公平性。",
+        "面對同一套制度，不同主管的說法不一致，讓我在管理上感到困擾。",
+        "我想調整制度，但會擔心一改就造成更大的連鎖問題。",
+        "在設計制度時，我多半只能憑經驗與直覺，難以預判長期影響。",
+        "在做制度決策前，我不完全清楚它對預算、激勵與績效的整體影響。",
+        "當制度在現場被質疑時，我不確定該如何回應，才能不傷害信任。",
+        "不同主管在執行管理時差異很大，讓我難以維持一致性。",
+        "遇到管理問題時，我常需要臨場判斷，缺乏一套可依循的處理原則。",
+        "我感覺員工的努力與貢獻，沒有被制度清楚地反映出來。",
+        "當關鍵人才流失時，我很難說清楚真正原因出在哪裡。",
+        "我感覺團隊的信任感與士氣正在下滑，並開始影響合作與績效。"
     ];
     let answers = new Array(12).fill(null);
 
@@ -167,7 +148,7 @@
             card.className = 'q-card';
             card.innerHTML = `<div><b>${i+1}. ${q}</b></div>
                 <div class="opt-group">
-                    ${[1,2,3,4].map(s => `<button class="opt-btn" onclick="setA(${i},${s},this)">${['','不同意','稍不同意','同意','非常同意'][s]}</button>`).join('')}
+                    ${[0,1,2,3].map(s => `<button class="opt-btn" onclick="setA(${i},${s},this)">${['不同意','稍不同意','同意','非常同意'][s]}</button>`).join('')}
                 </div>`;
             container.appendChild(card);
         });
@@ -183,51 +164,59 @@
     }
 
     function calculateDiagnosis() {
-        const sysRaw = answers.slice(0, 6).reduce((a, b) => a + b, 0);
-        const fldRaw = answers.slice(6, 12).reduce((a, b) => a + b, 0);
-        const total = sysRaw + fldRaw;
-
-        // 計算成熟度百分比：痛點分數越高，成熟度越低
-        const sysPerc = Math.round(((24 - sysRaw) / 18) * 100);
-        const fldPerc = Math.round(((24 - fldRaw) / 18) * 100);
-
+        const sysPain = answers.slice(0, 6).reduce((a, b) => a + b, 0); 
+        const fldPain = answers.slice(6, 12).reduce((a, b) => a + b, 0);
+        const sysPerc = Math.round(((18 - sysPain) / 18) * 100); 
+        const fldPerc = Math.round(((18 - fldPain) / 18) * 100);
+        
         const aContainer = document.getElementById('diag-analysis');
         const sContainer = document.getElementById('diag-summary');
+        const diff = sysPerc - fldPerc; 
 
-        if(total <= 18) {
-            // 低風險：框架微調
+        // 診斷分流邏輯校準
+        if ((sysPerc < 60 && fldPerc < 60 && Math.abs(diff) <= 10) || (sysPerc < 40 && fldPerc < 40)) {
+            // 雙重重災區
             aContainer.innerHTML = `
-                <div class="analysis-item"><h4>⚠️ 現場執行</h4><p>目前穩定，但制度公告後的解釋權多在個人，需透過《精緻團隊問答輯 3》將管理標準化。</p></div>
-                <div class="analysis-item"><h4>⚠️ 隱性流失</h4><p>建議補強《薪動力》核心邏輯，預先檢視獎勵方向是否偏差，避免外部誘因引發流失。</p></div>
-                <div class="analysis-item"><h4>⚠️ 決策工具</h4><p>目前靠經驗尚可應對，但缺乏結構化判斷工具，長期決策成本正默默增加。</p></div>
-                <div class="analysis-item"><h4>⚠️ 制度邏輯</h4><p>薪獎績效連結較弱。建議重新梳理一致性，降低未來隨組織擴張而產生的解釋成本。</p></div>`;
+                <div class="analysis-item"><h4>⚠️ 制度邏輯斷裂</h4><p>薪資與績效缺乏一致邏輯，必須優先透過《薪動力》重構制度決策系統。</p></div>
+                <div class="analysis-item"><h4>⚠️ 現場執行內耗</h4><p>制度難落地造成極大成本，必須補強《精緻團隊 80Q 第三輯》的情境解法。</p></div>
+                <div class="analysis-item"><h4>⚠️ 決策風險循環</h4><p>改制度怕出錯，形成「看得到改不動」的僵局，需從源頭決策框架著手。</p></div>
+                <div class="analysis-item"><h4>⚠️ 信任持續下滑</h4><p>制度缺陷與現場應對不一正在雙重損耗員工忠誠度，必須一次對齊。</p></div>`;
             sContainer.innerHTML = `
-                <div class="diag-title">核心結論：先用框架微調，避免小洞變大洞</div>
-                <p>您目前的卡點不算嚴重，建議用一套清楚的制度框架與《精緻團隊問答輯 3》的解法做預防性微調。</p>`;
-        } else if (sysRaw > fldRaw) {
-            // 制度端問題重災區
+                <span class="diag-title">核心結論：制度做錯 + 執行內耗 = 人才嚴重流失</span>
+                <p>問題不是單點，而是「制度 × 現場」形成內耗迴圈，必須透過「套組」一次對齊。</p>`;
+        } else if (sysPerc < 50 && diff <= -10) { 
+            // 制度拖後腿
             aContainer.innerHTML = `
-                <div class="analysis-item"><h4>⚠️ 邏輯斷裂</h4><p>薪資與績效缺乏一致邏輯，員工信任崩解。必須優先補強《薪動力》結構。</p></div>
-                <div class="analysis-item"><h4>⚠️ 決策盲區</h4><p>改制度靠直覺導致風險高。建議運用《薪動力》框架建立預算與激勵的判斷工具。</p></div>
-                <div class="analysis-item"><h4>⚠️ 執行阻力</h4><p>源頭邏輯不通導致主管難以說服員工，造成極大內耗。必須先從制度核心重新對齊。</p></div>
-                <div class="analysis-item"><h4>⚠️ 人才流失</h4><p>獎勵方向錯誤正讓「對的人走、錯的人留」。建議立即檢視薪資激勵結構。</p></div>`;
+                <div class="analysis-item"><h4>⚠️ 決策邏輯不明</h4><p>問題不在主管不會管，而在制度本身就讓人無法解釋與執行。</p></div>
+                <div class="analysis-item"><h4>⚠️ 預判能力缺失</h4><p>制度多憑直覺，難看清對績效的整體影響，必須參考《薪動力》建立框架。</p></div>
+                <div class="analysis-item"><h4>⚠️ 公平信任危機</h4><p>源頭設計不當，導致員工對公平性的不信任感正在蔓延。</p></div>
+                <div class="analysis-item"><h4>⚠️ 核心留才盲區</h4><p>如果不修正薪獎邏輯，管理技巧也難以留才。</p></div>`;
             sContainer.innerHTML = `
-                <div class="diag-title">核心結論：制度做錯 → 不信任 → 留錯人 → 人才流失</div>
-                <p>您的企業核心問題在於「制度決策」。必須透過《薪動力》建立正確架構，現場管理才能順遂。</p>`;
+                <span class="diag-title">核心結論：制度做錯 → 不信任 → 留錯人 → 人才流失</span>
+                <p>「制度先對，現場自然會順。」目前主管執行力尚可，建議優先透過《薪動力》重塑系統。</p>`;
+        } else if (fldPerc < 50 && diff >= 10) {
+            // 現場拖後腿
+            aContainer.innerHTML = `
+                <div class="analysis-item"><h4>⚠️ 制度不落地</h4><p>制度方向大致正確，但沒有被翻成主管「當下能用」的做法。</p></div>
+                <div class="analysis-item"><h4>⚠️ 管理執行偏差</h4><p>不同主管做法差異大，導致制度在執行面上出現嚴重不一致。</p></div>
+                <div class="analysis-item"><h4>⚠️ 現場溝通卡關</h4><p>面對員工質疑時，缺乏標準應對原則，持續損耗信任。</p></div>
+                <div class="analysis-item"><h4>⚠️ 隱性執行成本</h4><p>主管常需臨場判斷，造成極大的心理負荷與管理內耗。</p></div>`;
+            sContainer.innerHTML = `
+                <span class="diag-title">核心結論：制度不落地 → 管理內耗 → 信任崩解</span>
+                <p>您的制度已具雛形，但主管缺乏「落地工具」。《精緻團隊 80Q 第三輯》能幫您把制度轉換為留才動力。</p>`;
         } else {
-            // 現場端問題重災區
+            // 成熟度高 (體質良好)
             aContainer.innerHTML = `
-                <div class="analysis-item"><h4>⚠️ 執行脫節</h4><p>制度難以落地，造成極大溝通內耗。必須補強《精緻團隊問答輯 3》的情境落地解法。</p></div>
-                <div class="analysis-item"><h4>⚠️ 管理盲區</h4><p>主管在選用育評留缺乏標準解法。建議透過《精緻團隊問答輯 3》建立結構化對話基準。</p></div>
-                <div class="analysis-item"><h4>⚠️ 信任損耗</h4><p>主管回應不一傷及誠信。必須將制度轉化為主管聽得懂、做得到的具體動作。</p></div>
-                <div class="analysis-item"><h4>⚠️ 績效偏差</h4><p>判斷標準不一導致優秀人才感覺被虧待。建議優化現場考核的執行細節。</p></div>`;
+                <div class="analysis-item"><h4>✅ 決策框架穩定</h4><p>您的制度已具備邏輯性，能應對組織的基本需求。</p></div>
+                <div class="analysis-item"><h4>✅ 現場執行一致</h4><p>主管對制度的理解與執行相對統一，具備一定的管理韌性。</p></div>
+                <div class="analysis-item"><h4>✅ 信任基礎良好</h4><p>目前員工對制度的公平性與執行面尚具信心。</p></div>
+                <div class="analysis-item"><h4>✅ 預防性優化建議</h4><p>建議運用《薪動力》或《精緻團隊 80Q 第三輯》進行微調，避免小洞變大洞。</p></div>`;
             sContainer.innerHTML = `
-                <div class="diag-title">核心結論：制度不落地 → 管理內耗 → 信任崩解</div>
-                <p>您的問題在於「管理現場執行」。《精緻團隊問答輯 3》能幫您把制度真正轉換為留才動力。</p>`;
+                <span class="diag-title">核心結論：體質良好，建議進行預防性微調</span>
+                <p>目前的穩定是您的優勢，建議透過工具將成功經驗標準化，確保長期發展的穩定性。</p>`;
         }
-        
+
         showPage('result-page');
-        // 延遲一下讓進度條動畫跑出來
         setTimeout(() => {
             document.getElementById('bar-sys').style.width = sysPerc + '%';
             document.getElementById('val-sys').innerText = sysPerc + '%';
